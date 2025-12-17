@@ -65,3 +65,48 @@ cv.destroyAllWindows()
 ---
 <img width="1024" height="576" alt="image" src="https://github.com/user-attachments/assets/b3528b11-2897-44e0-8857-2a33129c62be" />
 
+## Redimensionamiento de imágenes por factor de escala
+
+Este programa utiliza OpenCV para redimensionar una imagen aplicando
+factores de escala en los ejes horizontal y vertical.
+
+Se definen dos factores de reescalamiento: uno para reducir el tamaño
+de la imagen (scaling down) y otro para ampliarla (scaling up).
+La función `cv.resize()` utiliza estos factores junto con un método
+de interpolación lineal para generar las nuevas imágenes.
+
+Finalmente, se muestran en pantalla la imagen original, la imagen
+reducida y la imagen ampliada para comparar los resultados.
+
+```python
+#redimensionamiento por factor de escala
+import cv2 as cv
+
+#cargamos la imagen 
+image = cv.imread ("Biblioteca.JPG")
+
+#agregamos los factores de reescalamiento
+scale_down = 0.077
+scale_up =  0.088
+
+#imagen reescalada (scaling down)
+rezised_down = cv.resize(image,None,fx=scale_down,fy=scale_down,interpolation=cv.INTER_LINEAR)
+#imagen reescalada (scaling up)
+rezised_up = cv.resize(image,None,fx=scale_up,fy=scale_up,interpolation=cv.INTER_LINEAR)
+
+#mostrar los resultados
+cv.imshow("Imagen original:", image)
+cv.imshow("Imagen reducida:", rezised_down)
+cv.imshow("Imagen ampliada:",rezised_up)
+
+#cerrar hasta que presionemos una tecla
+cv.waitKey(0)
+cv.destroyAllWindows()
+```
+| Método | Descripción | Mejor uso para... |
+| :--- | :--- | :--- |
+| `INTER_NEAREST` | Interpolación por el vecino más cercano (rápida, baja calidad). | Redimensionado simple (pixel art, imágenes binarias). |
+| `INTER_LINEAR` | Interpolación bilineal (**por defecto**). | Propósito general (equilibrio velocidad/calidad). |
+| `INTER_CUBIC` | Interpolación bicúbica (entorno 4x4). | **Agrandar** con alta calidad (más suave). |
+| `INTER_AREA` | Remuestreo por relación de área. | **Reducir** imágenes sin *aliasing* (sin ruido). |
+| `INTER_LANCZOS4` | Interpolación Lanczos (entorno 8x8). | Alta calidad para agrandar/reducir (preserva detalles). |
