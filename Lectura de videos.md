@@ -1,4 +1,4 @@
-# 📚 Módulo 01: Manejo de Video y Captura
+# 📚  Manejo de Video y Captura
 
 Este módulo contiene los scripts fundamentales para interactuar con archivos de video y periféricos (webcam) utilizando **OpenCV**. Es el primer paso para cualquier sistema de visión artificial, desde un seguidor de líneas hasta un detector de rostros.
 
@@ -38,8 +38,8 @@ else:
 
 ---
 
-## 2. 📷 Acceso a la Webcam
-Fundamental para proyectos en tiempo real. Este código inicializa la cámara por defecto de tu computadora y captura una foto instantánea.
+## 2. 📷 Captura de Foto con la Webcam
+Este código inicializa la cámara por defecto de tu computadora y captura una sola foto instantánea (un frame).
 
 ```python
 import cv2 as cv 
@@ -70,8 +70,44 @@ cap.release()
 
 ---
 
-## 3. 🎥 Reproducción de Video Completo
-A diferencia de los anteriores, este script utiliza un ciclo `while` para procesar la secuencia de imágenes (frames) de forma continua, mostrando las propiedades técnicas del archivo.
+## 3. 🔴 Transmisión en Vivo desde la Webcam
+Fundamental para proyectos de robótica en tiempo real. Utiliza un ciclo `while` para capturar y mostrar imágenes de tu cámara web continuamente hasta que decidas detenerlo.
+
+```python
+import cv2 as cv
+
+# Abrimos la cámara por defecto (ID 0)
+cap = cv.VideoCapture(0)
+
+if not cap.isOpened():
+    print("Error: No se puede acceder a la webcam")
+else:
+    print("Cámara iniciada. Presiona 'q' para salir.")
+    
+    # Ciclo para leer frames continuamente
+    while True:
+        ret, frame = cap.read()
+        
+        if not ret:
+            print("Error al capturar el frame. Saliendo...")
+            break
+            
+        # Mostramos el video en tiempo real
+        cv.imshow("Video en Vivo", frame)
+        
+        # Esperamos 1 ms y verificamos si se presiona la tecla 'q' para salir
+        if cv.waitKey(1) & 0xFF == ord('q'):
+            break
+
+# Liberamos la cámara y cerramos las ventanas
+cap.release()
+cv.destroyAllWindows()
+```
+
+---
+
+## 4. 🎥 Reproducción de Video Completo
+Este script utiliza un ciclo `while` para procesar la secuencia de imágenes (frames) de un archivo de video guardado en tu computadora, mostrando sus propiedades técnicas.
 
 ```python
 import cv2
@@ -112,5 +148,5 @@ cv2.destroyAllWindows()
 ---
 
 ### 💡 Tips de Uso:
-* **Salir de los videos:** En el script de reproducción continua, presiona la tecla **'q'** para cerrar la ventana limpiamente.
-* **FPS:** Si el video se ve muy rápido o lento, puedes ajustar el valor dentro de `cv2.waitKey(valor)`.
+* **Salir de los videos:** En los scripts de reproducción continua (webcam y video), asegúrate de tener seleccionada la ventana de la imagen y presiona la tecla **'q'** para cerrarla limpiamente.
+* **Múltiples Cámaras:** Si tienes más de una cámara conectada (por ejemplo, una USB para un robot), puedes cambiar `cv.VideoCapture(0)` por `cv.VideoCapture(1)` o `2`.
