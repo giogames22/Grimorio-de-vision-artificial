@@ -14,7 +14,7 @@ imagen redimensionada para poder compararlas visualmente.
 import cv2 as cv
 # Importa la librería OpenCV y la renombra como 'cv' para facilitar su uso
 
-image = cv.imread("Biblioteca.JPG")
+image = cv.imread("Direccion de la imagen")
 # Carga la imagen desde el archivo "Biblioteca.JPG"
 # La imagen se almacena como un arreglo NumPy (matriz de píxeles)
 # Si el archivo no se encuentra, 'image' será None
@@ -83,7 +83,7 @@ reducida y la imagen ampliada para comparar los resultados.
 import cv2 as cv
 
 #cargamos la imagen 
-image = cv.imread ("Biblioteca.JPG")
+image = cv.imread ("Direccion de la imagen")
 
 #agregamos los factores de reescalamiento
 scale_down = 0.077
